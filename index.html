@@ -12,13 +12,39 @@
   </head>
 
   <body>
+
     <main id="main">My ID is "main"!</main>
+    <script>
+    const main = document.getElementById('main');
+    main.addEventListener('click', function(event) {
+      alert('I was clicked!');
+    })
+    </script>
 
     <br />
 
     <div>
       <label>Input:</label><input />
     </div>
+  <script>
+    //to see console.log, remember to open the console on the page
+    const input = document.querySelector('input');
+
+    //this will return the code for the character preseed
+  	input.addEventListener('keydown', function(e) {
+  	     console.log(e.which);
+  	});
+
+    //this will repress any action where the code === 71 (or 'g')
+    input.addEventListener('keydown', function(e) {
+    if (e.which === 71) {
+      return e.preventDefault()
+    } else {
+      console.log(e.which)
+    }
+    });
+
+    </script>
 
     <br />
 
@@ -37,5 +63,39 @@
         </div>
       </div>
     </div>
+    <script>
+    let divs = document.querySelectorAll('div');
+
+    function bubble(e) {
+             console.log(this.firstChild.nodeValue.trim() + ' bubbled');
+    }
+    //this event listener waits for a click, then bubbles up the bubble(e) event function
+    for (let i = 0; i < divs.length; i++) {
+      divs[i].addEventListener('click', bubble);
+
+      function capture(e) {
+	     console.log(this.firstChild.nodeValue.trim() + ' captured');
+	}
+
+  //this event listener demonstrated the order of capture, on clicks within the event
+	 for (let i = 0; i < divs.length; i++) {
+	      // set the third argument to `true`!
+	      divs[i].addEventListener('click', capture, true);
+	}
+
+   // here we've redefined bubble(e) to stop the propagation of
+   // somethign ... not sure what!
+  function bubble(e) {
+    // stop! that! propagation!
+    e.stopPropagation();
+   
+    console.log(this.firstChild.nodeValue.trim() + ' bubbled');
+  }
+   
+  for (let i = 0; i < divs.length; i++) {
+    divs[i].addEventListener('click', bubble);
+  }
+    }
+</script>
   </body>
 </html>
